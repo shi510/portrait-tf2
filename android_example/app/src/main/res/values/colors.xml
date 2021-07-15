@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tfe_color_primary">#3F51B5</color>
+    <color name="tfe_color_primary_dark">#3F51B5</color>
+    <color name="tfe_color_accent">#425066</color>
+    <color name="tfe_semi_transparent">#66000000</color>
+
+    <color name="menu_background">#FFF6F6</color>
+
+    <color name="face_item_primary">#2d2d2d</color>
+    <color name="face_item_secondary">#FF4081</color>
+    <color name="face_item_accent">#33b5e5</color>
+    <color name="face_item_divider">#CCC</color>
+    <color name="face_item_icons">#FFF</color>
+    <color name="face_item_background">#FFF</color>
+</resources>

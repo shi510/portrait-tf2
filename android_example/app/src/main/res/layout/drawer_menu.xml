@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/menu_feed"
+            android:icon="@drawable/outline_list_alt_black_24"
+            android:title="@string/menu_connect" />
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_settings"
+            android:title="@string/menu_settings_name" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="@string/menu_about_name" />
+    </group>
+</menu>

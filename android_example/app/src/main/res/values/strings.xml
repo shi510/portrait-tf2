@@ -1,0 +1,23 @@
+<resources>
+    <string name="tfe_ic_app_name" translatable="false" translation_description="Video Call">VCall</string>
+    <string name="tfe_ic_camera_error" translatable="false" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
+    <string name="tfe_ic_gpu_quant_error" translatable="false" translation_description="Error regarding GPU support for Quant models[CHAR_LIMIT=60]">GPU does not yet supported quantized models.</string>
+    <string name="settings_thread_name">Threads:</string>
+    <string name="settings_model_name">Model:</string>
+    <string name="settings_device_name">Device:</string>
+    <string-array name="settings_infer_models" translatable="false">
+        <item>FloatModel</item>
+        <item>QuantizedModel</item>
+    </string-array>
+    <string-array name="settings_infer_devices" translatable="false">
+        <item>CPU</item>
+        <item>GPU</item>
+        <item>NNAPI</item>
+        <item>HEXAGON</item>
+    </string-array>
+
+    <string name="menu_connect">Connect</string>
+    <string name="menu_settings_name">Settings</string>
+    <string name="menu_about_name">About</string>
+    <string name="menu_title_name">Menu</string>
+</resources>
