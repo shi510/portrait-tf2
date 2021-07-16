@@ -49,5 +49,5 @@ Rebuild your android project and Install it.
 You can find the Pretrained file here [android_example/portrait/src/main/assets](android_example/portrait/src/main/assets).  
 
 
-## Android App Result (Background Blur)
-![android_app.jpg](android_app.jpg)  
+## Android App Result (Background Blur)  
+<img src="https://github.com/shi510/portrait-tf2/blob/main/android_app.jpg" width="270" height="480">
