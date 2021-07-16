@@ -47,3 +47,7 @@ app/src/main/jniLibs/arm64-v8a/libhexagon_nn_skel_v66.so
 ```
 Rebuild your android project and Install it.  
 You can find the Pretrained file here [android_example/portrait/src/main/assets](android_example/portrait/src/main/assets).  
+
+
+## Android App Result (Background Blur)
+![android_app.jpg](android_app.jpg)  

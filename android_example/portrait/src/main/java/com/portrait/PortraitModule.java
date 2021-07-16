@@ -144,19 +144,9 @@ public class PortraitModule {
         inputImageBuffer = loadImage(bitmap, sensorOrientation);
         tflite.run(inputImageBuffer.getBuffer(), outputProbabilityBuffer.getBuffer().rewind());
         float[] maskedOutput = probabilityProcessor.process(outputProbabilityBuffer).getFloatArray();
-        String temp = "";
-//        for(int i = 0; i < maskedOutput.length; ++i){
-////            if( (int)(maskedOutput[i]*255) > 100){
-////                temp += ", " + (int)(maskedOutput[i]*255);
-////            }
-//            temp += ", " + (int)(maskedOutput[i]);
-//        }
-//        Log.i("@@@@", temp);
-
         Bitmap postProcessed = Bitmap.createBitmap(imageSizeX, imageSizeY, Bitmap.Config.ARGB_8888);
         maskProcessing(postProcessed, maskedOutput);
         return postProcessed;
-//        return outputProbabilityBuffer.getIntArray();
     }
 
     /** Closes the interpreter and model to release resources. */
