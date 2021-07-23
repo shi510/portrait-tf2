@@ -32,11 +32,14 @@ For Windows, $env:PYTHONPATH=$pwd
 ```
 python train/main.py
 ```
+You can find the pretrained file here [android_example/portrait/src/main/assets](android_example/portrait/src/main/assets).  
 
 ## 3. Android example
 Open the [android_example](android_example) with android studio.  
 Build and Install to your phone.  
-You can accelerate your model with Qualcommm Hexagon DSP.  
+
+## 4. Qualcomm HEXAGON Accerator
+You can accelerate your model with Qualcomm Hexagon DSP.  
 See https://www.tensorflow.org/lite/performance/hexagon_delegate.  
 Download Hexagon libary from the above link.  
 Then, Put that libary to the directory, app\src\main\jniLibs\arm64-v8a.  
@@ -46,8 +49,6 @@ app/src/main/jniLibs/arm64-v8a/libhexagon_nn_skel_v65.so
 app/src/main/jniLibs/arm64-v8a/libhexagon_nn_skel_v66.so
 ```
 Rebuild your android project and Install it.  
-You can find the Pretrained file here [android_example/portrait/src/main/assets](android_example/portrait/src/main/assets).  
-
 
 ## Android App Result (Background Blur)  
 <img src="https://github.com/shi510/portrait-tf2/blob/main/android_app.jpg" width="270" height="480">
