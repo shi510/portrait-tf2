@@ -38,11 +38,11 @@ You can find the pretrained file here [android_example/portrait/src/main/assets]
 Open the [android_example](android_example) with android studio.  
 Build and Install to your phone.  
 
-## 4. Qualcomm HEXAGON Accerator
+## 4. Qualcomm HEXAGON Accelerator
 You can accelerate your model with Qualcomm Hexagon DSP.  
 See https://www.tensorflow.org/lite/performance/hexagon_delegate.  
 Download Hexagon libary from the above link.  
-Then, Put that libary to the directory, app\src\main\jniLibs\arm64-v8a.  
+Then, put that libary to the directory, app\src\main\jniLibs\arm64-v8a.  
 ```
 app/src/main/jniLibs/arm64-v8a/libhexagon_nn_skel.so
 app/src/main/jniLibs/arm64-v8a/libhexagon_nn_skel_v65.so
