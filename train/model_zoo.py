@@ -65,7 +65,8 @@ def _bottleneck_block(x, in_ch, out_ch):
 
     y = tf.keras.layers.Conv2D(in_ch, (3, 3), padding='same', use_bias=False)(y)
     y = tf.keras.layers.BatchNormalization()(y)
-    y = tf.keras.layers.ReLU(6.)(y) + shortcut
+    y = tf.keras.layers.Add()([y, shortcut])
+    y = tf.keras.layers.ReLU(6.)(y)
 
     y = tf.keras.layers.Conv2D(out_ch, (1, 1), use_bias=False)(y)
     y = tf.keras.layers.BatchNormalization()(y)
