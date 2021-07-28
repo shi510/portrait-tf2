@@ -2,6 +2,7 @@ from train.model_zoo import build_mobilenetV2
 from train.input_pipeline import make_tfdataset
 from train.utils import convert_tflite_int8
 from train.utils import train_quant_aware
+from train.utils import copy_weights_if_only_exits
 
 import numpy as np
 import tensorflow as tf
@@ -13,7 +14,7 @@ y_train=np.load('data/msk_uint8.npy')
 x_test=np.load('data/test_xtrain.npy')
 y_test=np.load('data/test_ytrain.npy')
 
-shape = [256, 256, 3]
+shape = [128, 128, 3]
 
 train_ds, test_ds = make_tfdataset((x_train, y_train), (x_test, y_test), 32, shape[:2])
 
@@ -27,9 +28,20 @@ early_stop = tf.keras.callbacks.EarlyStopping(
     mode='max', patience=7,
     restore_best_weights=True)
 
-model.fit(train_ds, validation_data=test_ds, epochs=8, verbose=1, callbacks=[early_stop])
+model.fit(train_ds, validation_data=test_ds, epochs=6, verbose=1, callbacks=[early_stop])
 
-quant_model = train_quant_aware(model, train_ds, test_ds, 8)
+quant_model = train_quant_aware(model, train_ds, test_ds, 6)
+
+# TODO:
+#       QAT works, but QAT model conversion is a bit odd.
+#       Both quantization and dequantization operators are added to an output of annotated layer.
+#       I think it is a bug on tensorflow lite converter for annotated QAT models.
+#       To fix this problem, but not correct answer, we just copy QAT weights to the original model.
+#       And then, apply post-quantization to find quantization ranges.
+quant_model.evaluate(test_ds)
+copy_weights_if_only_exits(model, quant_model)
+model.evaluate(test_ds)
+quant_model = model
 
 train_ds, test_ds = make_tfdataset((x_train, y_train), (x_test, y_test), 1, shape[:2])
 quant_model.inputs[0].set_shape([1] + shape)

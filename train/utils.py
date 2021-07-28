@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 import tensorflow as tf
 import tensorflow_model_optimization as tfmot
 
@@ -47,13 +49,19 @@ def train_quant_aware(base_model, train_ds, test_ds, num_epoch):
             return tfmot.quantization.keras.quantize_annotate_layer(layer)
         return layer
     annotated_model = tf.keras.models.clone_model(base_model, clone_function=apply_quantization_to_dense)
-    # TODO:
-    #       QAT works, but QAT model conversion is a bit odd.
-    #       Quantization and dequantization operators are added to an output of annotated layer.
-    #       I think the quantization annotation should be stripped after QAT to convert tflite correctly.
-    # quant_model = tfmot.quantization.keras.quantize_apply(annotated_model)
-    quant_model = annotated_model
+    quant_model = tfmot.quantization.keras.quantize_apply(annotated_model)
     quant_model.compile(loss=tf.nn.sigmoid_cross_entropy_with_logits, optimizer=tf.keras.optimizers.Adam(lr=1e-4),metrics=['accuracy'])
     quant_model.summary()
     quant_model.fit(train_ds, validation_data=test_ds, epochs=num_epoch, verbose=1, callbacks=[early_stop])
     return quant_model
+
+def copy_weights_if_only_exits(source_model, target_model):
+    var_list = OrderedDict()
+    for v in source_model.weights:
+        var_list[v.name] = v.numpy()
+
+    for q in target_model.weights:
+        if q.name in var_list:
+            var_list[q.name] = q.numpy()
+
+    source_model.set_weights(list(var_list.values()))

@@ -119,16 +119,19 @@ def build_mobilenetV2(shape):
     y = tf.keras.layers.ReLU(6.)(y)
     y = tf.keras.layers.UpSampling2D(size=(2, 2), interpolation='bilinear')(y)
     y = tf.concat([y, previous_16x16], axis=-1)
+    y = tf.keras.layers.Dropout(0.3)(y)
 
     # add block
     y = _bottleneck_block(y, 240, 144)
     y = tf.keras.layers.UpSampling2D(size=(2, 2), interpolation='bilinear')(y)
     y = tf.concat([y, previous_32x32], axis=-1)
+    y = tf.keras.layers.Dropout(0.3)(y)
 
     # add block
     y = _bottleneck_block(y, 144, 96)
     y = tf.keras.layers.UpSampling2D(size=(2, 2), interpolation='bilinear')(y)
     y = tf.concat([y, previous_64x64], axis=-1)
+    y = tf.keras.layers.Dropout(0.3)(y)
 
     # add block
     y = _bottleneck_block(y, 96, 48)

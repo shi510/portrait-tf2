@@ -14,8 +14,8 @@ def gray(x):
 
 
 def random_color(x: tf.Tensor):
-    x = tf.image.random_hue(x, 0.2)
-    x = tf.image.random_brightness(x, 0.2)
+    x = tf.image.random_hue(x, 0.3)
+    x = tf.image.random_brightness(x, 0.3)
     x = tf.image.random_contrast(x, 0.8, 1.2)
     return x
 
@@ -37,7 +37,7 @@ def cutout(x : tf.Tensor):
 
     def _cutout(x : tf.Tensor):
         const_rnd = tf.random.uniform([], 0., 1., dtype=tf.float32)
-        size = tf.random.uniform([], 0, 20, dtype=tf.int32)
+        size = tf.random.uniform([], 0, 32, dtype=tf.int32)
         size = size * 2
         return tfa.image.random_cutout(x, (size, size), const_rnd)
 
@@ -59,11 +59,11 @@ def make_tfdataset(train_list, test_list, batch_size, img_shape):
         return tf.concat([bg, label], axis=-1)
 
 
-    train_ds = train_ds.shuffle(10000)
+    train_ds = train_ds.shuffle(5000)
     train_ds = train_ds.batch(batch_size)
     train_ds = train_ds.map(lambda img, label : (_normalize(img), _normalize(label)), num_parallel_calls=TF_AUTOTUNE)
     train_ds = train_ds.map(lambda img, label : (img, split_label_channel(label)), num_parallel_calls=TF_AUTOTUNE)
-    augmentations = []#[random_color, blur, cutout, gray]
+    augmentations = [random_color, blur, cutout, gray]
     for f in augmentations:
         choice = tf.random.uniform([], 0.0, 1.0)
         train_ds = train_ds.map(lambda x, label: (tf.cond(choice > 0.5, lambda: f(x), lambda: x), label),
